@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static ATD.CommonMethods.*;
 import static ATD.CommonMethods.getAttributeFromUnVisibleElement;
+import static Common.CommonMethods.waitWhileRouteBecomeExpected;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
@@ -47,12 +48,6 @@ public class Category_car_list_page_Logic extends Category_car_list_page {
     public Category_car_list_page_Logic checkingDatenschutzerklarungLinkBehaviorSoftForm() {
         new CommonMethods().checkingDatenschutzerklarungLinkBehavior(datenschutzerklarungLinkSoftForm(), "underline solid rgb(0, 0, 0)");
         return this;
-    }
-
-    @Step(":for Category_car_list_page")
-    public Product_page_Logic clickFirstProductOnListing() {
-        new Listing_page_Logic().clickFirstProductOnListing();
-        return page(Product_page_Logic.class);
     }
 
     @Step("select brand in brands block. Category_car_list_page")
@@ -153,21 +148,6 @@ public class Category_car_list_page_Logic extends Category_car_list_page {
             productPage.setPriceOfProduct(Double.parseDouble(priceOfProduct().get(i).getText().replaceAll("[^0-9,]", "").replace(",", ".")));
             list.add(productPage);
         }
-        return this;
-    }
-
-    @Step("input generic in Search field. Category_car_list_page")
-    public Search_page_Logic inputGenericInSearchField(String generic) {
-        mainSearchField().shouldBe(visible).setValue(generic);
-        btnSearchOfSearchField().click();
-        return page(Search_page_Logic.class);
-    }
-
-
-    @Step("Login in header with mail {mail} and transition to profile plus page and go back. Category_car_list_page")
-    public Category_car_list_page_Logic loginToProfilePlusPageAndBack(String email) {
-        new Main_page_Logic().loginAndTransitionToProfilePlusPage(email).visibilityOfUsersName();
-        back();
         return this;
     }
 
@@ -501,33 +481,6 @@ public class Category_car_list_page_Logic extends Category_car_list_page {
         return this;
     }
 
-    @Step("checking the applicability of product for selected vehicle .Car_parts_motoroil_page")
-    public Category_car_list_page_Logic checkingApplicabilityOfProductForSelectedVehicle() {
-        selectProductInTecDocListing();
-        while (nextPagePagination().isDisplayed()) {
-            nextPagePagination().click();
-            selectProductInTecDocListing();
-        }
-        return this;
-    }
-
-    @Step("click on product in Listing and check presence Of Phrase About Compatibility.Category_car_list_page")
-    public Category_car_list_page_Logic selectProductInTecDocListing() {
-        for (int i = 0; i < productsOnPage().size(); i++) {
-            /*System.out.println(artNumOfProduct().get(i).getText() + " (index = " + i + ")");*/   // Use when fail
-            imageOfProductTecDocListingBlock().get(i).scrollIntoView("{block: \"center\"}").click();
-            new Product_page_Logic().presenceOfPhraseAboutCompatibilityProductAndVehicle();
-            back();
-        }
-        return this;
-    }
-
-    @Step("click on Product in TecDoc listing .Category_car_list_page")
-    public Product_page_Logic clickOnProductInTecDocListing(int point) {
-        imageOfProductTecDocListingBlock(point).scrollIntoView("{block: \"center\"}").click();
-        return page(Product_page_Logic.class);
-    }
-
     @Step("display of brands block. Category_car_list_page")
     public Category_car_list_page_Logic displayOfBrandsBlock() {
         brandsFilterBlock().shouldBe(visible);
@@ -565,12 +518,6 @@ public class Category_car_list_page_Logic extends Category_car_list_page {
         return this;
     }
 
-    @Step(": for Category_car_list_page")
-    public  Category_car_list_page_Logic checkAbsenceArticleNum(String expectedArtNum) {
-        new Listing_page_Logic().checkAbsenceArticleNum(expectedArtNum);
-        return this;
-    }
-
     @Step("set brand filter. Category_car_list_page")
     public Category_car_list_page_Logic setBrandFilter(String idOfBrand) {
         brandsFilterBlock().shouldBe(visible);
@@ -584,31 +531,7 @@ public class Category_car_list_page_Logic extends Category_car_list_page {
         return this;
     }
 
-    @Step(": for Category_car_list_page")
-    public Category_car_list_page_Logic checkPresenceSpecificArticleNumOnListing(String expectedArtNum) {
-        new Listing_page_Logic().checkPresenceSpecificArticleNumOnListing(expectedArtNum);
-        return this;
-    }
-
-    @Step(": for Category_car_list_page")
-    public Category_car_list_page_Logic checkPresenceGrayBtnAtExpectedProduct(String idProduct) {
-        new Listing_page_Logic().checkPresenceGrayBtnAtExpectedProduct(idProduct);
-        return this;
-    }
-
-    @Step(": for Category_car_list_page")
-    public Category_car_list_page_Logic checkAbsenceGrayBtnAtExpectedProduct(String idProduct) {
-        new Listing_page_Logic().checkAbsenceGrayBtnAtExpectedProduct(idProduct);
-        return this;
-    }
-
-    @Step(": for Category_car_list_page")
-    public Category_car_list_page_Logic checkPresenceAddToCartBtnForSpecificItem(String idProduct) {
-        new Listing_page_Logic().checkPresenceAddToCartBtnForSpecificItem(idProduct);
-        return this;
-    }
-
-    @Step("check Titles Of TOP Auto Links. Category_car_list_page")
+      @Step("check Titles Of TOP Auto Links. Category_car_list_page")
     public Category_car_list_page_Logic checkTitlesOfTopCarLinks(List<String> expectedAutoLinks) {
         linksBlock().shouldBe(visible);
         Assert.assertEquals(topAutoLinks().size(), expectedAutoLinks.size());

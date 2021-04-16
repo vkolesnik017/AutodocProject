@@ -37,7 +37,8 @@ public class QC_2061 {
 
     @DataProvider(name = "route")
     Object[] dataProvider() throws SQLException {
-        return new SetUp("ATD").setUpShopWithSubroutes("prod", "DE", "main", "category_car_list31");
+      //  return new SetUp("ATD").setUpShopWithSubroutes("prod", "DE", "main", "category_car_list31");
+        return new Object[][] {{"https://www.autodoc.de/autoteile/motorelektrik-10854/vw/golf/golf-iv-1j1/15539-1-6"}};
     }
 
     @Test(dataProvider = "route")

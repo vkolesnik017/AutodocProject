@@ -250,8 +250,7 @@ public class CommonMethods {
             }
             sleep(2000);
             if (avaliablePopup.is(visible)) {
-                new Listing_page_Logic().closePopupByClickOverlayOnListingSearch();
-                thirdProductInBlockForHover.hover();
+                              thirdProductInBlockForHover.hover();
                 thirdProductBuyButton.click();
             }
         } catch (ElementShould e1) {
