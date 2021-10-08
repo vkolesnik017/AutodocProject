@@ -49,6 +49,7 @@ public class QC_2061 {
         openPage(route);
         new Category_car_list_page_Logic()
                 .checkTecDocListing(expectedGenerics);
+        System.out.println();
     }
 
     @AfterMethod
