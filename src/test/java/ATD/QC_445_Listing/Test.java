@@ -1,14 +1,33 @@
 package ATD.QC_445_Listing;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        List<String> projectName = Arrays.asList("ios_atd_se", "ios_atd_de", "ios_atd_uk");
-        List<String> searchLanguage = Arrays.asList("uk", "de", "at");
-        String phrase = searchElement(projectName, searchLanguage);
-        System.out.println(phrase);
+
+        String str = "GB 123456789";
+
+        String str2= str.replaceAll("\\s","").substring(1,str.length()-1);
+        System.out.println(str2);
+
+        boolean label = str.matches("^\\D{2}\\s\\d{9}") ? true:false;
+
+        System.out.println(label
+        );
+
+        List<String> shop = Arrays.asList("DE", "BE", "NO", "FR", "IT");
+        List<String> expectedArray = new ArrayList<>();
+        while (expectedArray.size() != 3) {
+            int i = 1 + (int) (Math.random() * shop.size());
+            if (expectedArray.contains(shop.get(i))) {
+                continue;
+            } else {
+                expectedArray.add(shop.get(i));
+            }
+        }
+        expectedArray.forEach(System.out::println);
     }
 
     public static String searchElement(List<String> firstList, List<String> secondList) {
@@ -25,4 +44,5 @@ public class Test {
         } else
             return "It's a small digit";
     }
+
 }
